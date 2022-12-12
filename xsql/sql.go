@@ -3,6 +3,7 @@ package xsql
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"fmt"
 	"net"
@@ -16,6 +17,8 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+
+	_ "github.com/lib/pq"
 
 	"github.com/anzx/xplore-pkg/sql/migration"
 )
@@ -219,12 +222,17 @@ func closeDB(db *gorm.DB) error {
 // connect opens a new connection to a sql instance given the current
 // client connection string.
 func (client *Client) connect() (*gorm.DB, error) {
-	dialector := postgres.Open(client.connectionString)
+	sqlDB, err := sql.Open("postgres", client.connectionString)
+	if err != nil {
+		log.Fatal(err)
+	}
 	gormConfig := &gorm.Config{}
 	if log.GetLevel() >= log.DebugLevel {
 		gormConfig.Logger = logger.Default.LogMode(logger.Info)
 	}
-	return client.openFunc(dialector, gormConfig)
+	return client.openFunc(postgres.New(postgres.Config{
+		Conn: sqlDB,
+	}), gormConfig)
 }
 
 func (client *Client) logEntry() *log.Entry {
