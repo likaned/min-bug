@@ -1,0 +1,3 @@
+UPDATE "cases" SET "alert" = false WHERE "alert" IS NULL;
+ALTER TABLE "cases" ALTER COLUMN "alert" SET NOT NULL;
+ALTER TABLE "cases" ALTER COLUMN "alert" SET DEFAULT FALSE;

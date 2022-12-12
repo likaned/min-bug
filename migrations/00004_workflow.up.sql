@@ -1,0 +1,3 @@
+update cases set
+description = 'As per <a href="https://confluence.service.anz/pages/viewpage.action?pageId=662286446">Cloud Security Reference Architecture (CSRA V2.0)</a> ll data of High Trust or Very High Trust level or confidential or restricted confidentiality must be encrypted using ANZ managed keys.One or more GCP resources for which the labels "confidentiality", "integrity" and "trustlevel" indicate that an ANZ managed key is required do not have CMEK enabled. Ensure that CMEK is enabled for all data stores with data of High Trust or Very High Trust level or confidential or restricted confidentiality.'
+where title = 'CMEK not enabled for confidential data store';

@@ -1,0 +1,7 @@
+out
+vendor
+.test.env
+.vscode
+.idea
+.antlr
+**/out

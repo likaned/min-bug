@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS "processed_messages" ("id" text, "source" text,"created_at" timestamptz,PRIMARY KEY ("id"))
